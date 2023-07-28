@@ -10,8 +10,7 @@ jobs:
     docker:
       - image: cimg/base:2023.06
     steps:
-      - checkout
-      - run: <command>
+      - run: sleep 1
 workflows:
   build_and_test:
     jobs:
