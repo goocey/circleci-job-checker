@@ -2,7 +2,7 @@ from pycircleci.api import Api, CIRCLE_TOKEN, CIRCLE_API_URL
 from os import environ
 import slackweb
 import textwrap
-
+from datetime import datetime
 
 org = environ.get("ORG")
 project = environ.get("PROJECT")
@@ -17,13 +17,17 @@ results = circle_client.get_project_build_summary(org, project, status_filter="r
 # pretty print results as json
 # circle_client.ppj(results)
 for result in results:
-    if (int(result["build_time_millis"]) > int(limit_exec_job_second) * 1000):
+    date_str = result["start_time"] #'2023-07-29T20:39:06.131Z'
+    date_format = '%Y-%m-%dT%H:%M:%S.%fZ'
+    date_obj = datetime.strptime(date_str, date_format)
+    now = datetime.now(tz=None)
+    total_sec = (now - date_obj).total_seconds()
+    if (total_sec > int(limit_exec_job_second)):
         # print(result["workflows"]["workflow_name"])
         # print(result["start_time"])
         # print(result["build_num"])
         # print(result["build_time_millis"])
         # print(result["build_url"])
-        total_sec = int(result["build_time_millis"]) / 1000
         min = int(total_sec // 60)
         sec = int(total_sec % 60)
         string = """
