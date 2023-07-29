@@ -1,0 +1,2 @@
+registryUrl: "docker-registry.dev.g00cey/circleci-job-checker:latest"
+cron: "* * * * *"

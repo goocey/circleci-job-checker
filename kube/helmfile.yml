@@ -1,0 +1,18 @@
+environments:
+  local:
+    values:
+      - environment/local.yml
+  dev:
+    values:
+      - environment/dev.yml
+  stg:
+    values:
+      - environment/stg.yml
+  prd:
+    values:
+      - environment/prd.yml
+---
+releases:
+  - name: circleci-job-checker
+    namespace: circleci-job-checker
+    chart: ./manifests/base

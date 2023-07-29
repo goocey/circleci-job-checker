@@ -1,0 +1,7 @@
+environments:
+  local:
+  dev:
+  stg:
+  prd:
+helmfiles:
+  - ./helmfile.yml

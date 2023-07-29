@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: check-circleci
+spec:
+  schedule: "{{.Values.cron}}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: check-circle-ci
+              image: {{.Values.registryUrl}}
+              env: 
+              - name: CIRCLE_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: circleci
+                    key: CIRCLE_TOKEN
+              - name: CIRCLE_API_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: circleci
+                    key: CIRCLE_API_URL
+              - name: ORG
+                valueFrom:
+                  secretKeyRef:
+                    name: circleci
+                    key: ORG
+              - name: PROJECT
+                valueFrom:
+                  secretKeyRef:
+                    name: circleci
+                    key: PROJECT
+              - name: LIMIT_EXEC_JOB_SECOND
+                valueFrom:
+                  secretKeyRef:
+                    name: circleci
+                    key: LIMIT_EXEC_JOB_SECOND
+              - name: SLACK_WEBHOOK
+                valueFrom:
+                  secretKeyRef:
+                    name: circleci
+                    key: SLACK_WEBHOOK
+              command:
+                - python
+                - main.py
+          restartPolicy: OnFailure
