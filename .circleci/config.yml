@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: cimg/base:2023.06
     steps:
-      - run: sleep 5
+      - run: sleep 10
   test:
     docker:
       - image: cimg/base:2023.06
