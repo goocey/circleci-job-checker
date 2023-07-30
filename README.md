@@ -7,3 +7,4 @@ CircleCIの起動中のworkflowでJobが指定時間以上起動していない�
 - kube/secrets/emptyをもとにcircleci_secretを作成
 - make build push applyを実行
 
+
